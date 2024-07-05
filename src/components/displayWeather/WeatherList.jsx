@@ -10,12 +10,11 @@ function WeatherList() {
   if (weather) {
     high = weather.list.filter((item) => item.dt_txt.includes('18:00'));
   }
-  console.log(high, 'im high');
   useEffect(() => {
     (async () => {
       const response = await getLocationWeather(latLon[0], latLon[1]);
       setWeather(response);
-      
+
     })();
   }, [latLon]);
   return (

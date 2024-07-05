@@ -9,32 +9,32 @@ function SearchBar() {
     formState: { errors },
   } = useForm();
 
-  const { setLocations, latLon, setLatLon } = useContext(AppContext);
+  const { setLocations, setShowLocations } = useContext(AppContext);
   const submit = async (searchData) => {
     if (searchData.location) {
       const data = await getLonLat(searchData.location);
-      console.log(data);
-      setLocations(data)
+      setLocations(data);
+      setShowLocations(true);
     }
   };
   return (
     <>
       <form noValidate onSubmit={handleSubmit(submit)}>
-        <div
-          className='flex justify-center gap-1 '
-        >
+        <div className='flex justify-center gap-1 '>
           <input
             type='text'
-            name=''
-            id=''
-            className='rounded-md pl-2 bg-slate-900 border border-blue-400 placeholder-slate-400'
+            autoComplete='off'
+            className='rounded-md pl-2 bg-slate-900 border border-blue-400 text-slate-400 placeholder-slate-400'
             placeholder='Search location'
-
-
-            {...register('location')}
+            {...register('location'
+            // , { required: 'Please enter the location' }
+            )}
           />
-          <button className=' bg-slate-900 border border-blue-400 p-2 rounded-md text-slate-400'>Search</button>
+          <button className=' bg-slate-900 border border-blue-400 p-2 rounded-md text-slate-400'>
+            Search
+          </button>
         </div>
+          {/* {errors.location && <p className='text-center mt-2 text-red-300 text-lg'>{errors.location.message}</p>} */}
       </form>
     </>
   );
